@@ -1,0 +1,5 @@
+# Benchmark data is fetched by fetch_data.py; the SQLite file is built by build_dabstep_data.py
+data/context/
+data/tasks/
+data/payments.sqlite
+__pycache__/

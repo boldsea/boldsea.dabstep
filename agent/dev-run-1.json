@@ -1,0 +1,68 @@
+{
+ "run": "dev 10, one subagent per task, tools: graph evaluate + payments-sql",
+ "date": "2026-11-22",
+ "score": "9/10",
+ "note_2697": "agent C:131.20 vs reference E:13.57; agent excluded ACIs D/E/F because GlobalCard and NexPay have no matching rule there (fee unknown, not zero)",
+ "tasks": [
+  {
+   "task_id": "5",
+   "agent_answer": "NL",
+   "source": "SQL",
+   "correct": true
+  },
+  {
+   "task_id": "49",
+   "agent_answer": "B. BE",
+   "source": "SQL",
+   "correct": true
+  },
+  {
+   "task_id": "70",
+   "agent_answer": "Not Applicable",
+   "source": "graph",
+   "correct": true
+  },
+  {
+   "task_id": "1273",
+   "agent_answer": "0.120132",
+   "source": "graph",
+   "correct": true
+  },
+  {
+   "task_id": "1305",
+   "agent_answer": "0.123217",
+   "source": "graph",
+   "correct": true
+  },
+  {
+   "task_id": "1464",
+   "agent_answer": "416 fee IDs (graph filter; count 416 and id checksum 205216 equal the reference list)",
+   "source": "graph",
+   "correct": true
+  },
+  {
+   "task_id": "1681",
+   "agent_answer": "286, 381, 454, 473, 477, 536, 572, 709, 741, 813",
+   "source": "SQL + graph",
+   "correct": true
+  },
+  {
+   "task_id": "1753",
+   "agent_answer": "36, 51, 53, 64, 107, 123, 150, 163, 231, 249, 276, 286, 347, 381, 384, 394, 428, 454, 473, 477, 536, 556, 572, 595, 608, 626, 680, 709, 725, 741, 813, 868, 939, 960",
+   "source": "graph",
+   "correct": true
+  },
+  {
+   "task_id": "1871",
+   "agent_answer": "-0.94810300000000",
+   "source": "graph",
+   "correct": true
+  },
+  {
+   "task_id": "2697",
+   "agent_answer": "C:131.2",
+   "source": "SQL + graph",
+   "correct": false
+  }
+ ]
+}
