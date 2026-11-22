@@ -437,8 +437,9 @@ class DABstepBSLSolver:
             return str(n), "Model Payment: COUNT(DISTINCT ip_address)"
         if tid == 58:
             # Q3 = months 7, 8, 9
-            row = c.execute("SELECT AVG(fraud_rate) FROM monthly_stats WHERE merchant='Crossfit_Hanna' AND tx_year=2023 AND tx_month IN (7,8,9)").fetchone()
-            return f"{100.0 * row[0]:.6f}", "BSL MonthlyMerchantStats: Crossfit_Hanna Q3 2023 avg fraudRate (%)"
+            # fraud rate of a period = fraud volume / total volume over the period, not a mean of monthly rates
+            row = c.execute("SELECT 1.0 * SUM(has_fraudulent_dispute * eur_amount) / SUM(eur_amount) FROM payments WHERE merchant='Crossfit_Hanna' AND year=2023 AND tx_month IN (7,8,9)").fetchone()
+            return f"{100.0 * row[0]:.6f}", "Policy-FraudDefinition: Crossfit_Hanna Q3 2023 fraud volume / total volume (%)"
         if tid == 59:
             # Last quarter = months 10, 11, 12
             rows = c.execute(

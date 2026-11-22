@@ -31,12 +31,13 @@ Stated as they are:
 - **Official dev set:** 9 of 10. The failing task (2697) has a reference answer
   `E:13.57`; the solver answers `E`. The number could not be reproduced under
   any semantics we tried (see `docs/02-preparation-and-runs-report.md`, §7).
-- **Hidden set (450 tasks):** no leaderboard score yet. Against the answers the
-  leaderboard accepted in a random sample of 200 public submissions
-  (`data/task_scores` of the dataset), the current submission agrees on
-  **439 of 450**. The comparison is approximate (numeric tolerance, lists as
-  sets); it was used to check the semantics of task families, not to copy
-  answers (§8 of the report).
+- **Hidden set (450 tasks):** no leaderboard score yet. The dataset publishes
+  how the leaderboard scored every answer of every public submission
+  (`data/task_scores`). In a random sample of 200 submissions, an answer
+  identical to ours was scored correct for **422 tasks**, incorrect for 27, and
+  never occurred for 1 — an expected score of about 94 %. The same data was
+  used to check the semantics of task families, not to copy answers (§8 of the
+  report).
 - **Agent on the live graph:** 9 of 10 on dev in a pilot run; not run on the
   450 tasks.
 
@@ -55,8 +56,9 @@ without a fitting rule stays a candidate and that payment costs nothing.
   computes over SQLite with the same semantics as the model; the two were
   cross-checked (200 payments and control totals), but they are two
   implementations. The agent in `agent/` is the graph-only path.
-- Eleven tasks of the 450 still disagree with accepted answers; they are listed
-  in §8.1 of the report.
+- 27 answers are known to be scored incorrect: 22 rate-change deltas where the
+  reference answer is rounded to one or two decimals although the task asks for
+  14 (our unrounded value is rejected), and five others; see §8.2 of the report.
 
 ## Reproduce
 

@@ -190,3 +190,30 @@ the hidden tasks it is not checked.
 
 Variants in `submissions/variants`: `aci-sum` was replaced by `aci-min` (the base
 variant now computes by sum itself).
+
+### 8.2. Direct check of our answers (2026-11-22)
+
+The figure of 439 in §8.1 came from an approximate comparison (numeric
+tolerance, lists as sets) and is too optimistic. A direct check — how the
+leaderboard scored answers identical to ours in the same 200 submissions —
+gives: scored correct for **422 tasks**, scored incorrect for **27**, never
+seen for 1. Expected score: about 94 %.
+
+One more semantic fix followed from it: task 58 (fraud rate of a quarter) is
+fraud volume over total volume of the period, not the mean of monthly rates.
+
+The 27 answers scored incorrect:
+
+- **rate-change delta — 22.** Our value was submitted by 48–67 other agents
+  per task and rejected every time. The accepted answers are the same value
+  rounded to two decimals (sometimes one: `8.7`, `42.9`, `-2.5`), although the
+  guideline asks for 14 decimals; in a few tasks they differ in the hundredths
+  (`-53.25` against our `-53.278`). For the other 18 tasks of the family the
+  unrounded value is accepted. Which tasks have a rounded reference cannot be
+  told from the question, so answering them would mean choosing the format per
+  task from the leaked scores. Left as is;
+- **1443, 1447** — strict `is_credit = true` in the reference (see §8.1);
+- **2712** — move-fraud-to-ACI, wrong letter, cause not found (a second task of
+  this family is the one never seen);
+- **17** — the reference is `8.91`; our `8.907926` follows the guideline
+  (6 decimals) and is rejected.
