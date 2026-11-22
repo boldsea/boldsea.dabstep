@@ -217,3 +217,20 @@ The 27 answers scored incorrect:
   this family is the one never seen);
 - **17** — the reference is `8.91`; our `8.907926` follows the guideline
   (6 decimals) and is rejected.
+
+### 8.3. Leaderboard result (2026-11-22)
+
+The submission was scored on the same day: **422 of 450, 93.78 %** — easy
+98.61 % (71 of 72), hard 92.86 % (351 of 378). This is the figure of the direct
+check in §8.2. Validation requests are closed by the organisers until
+DABstep-v2, so the entry stays on the Unvalidated tab.
+
+The 28 answers scored incorrect — a correction to the list in §8.2, which
+miscounted the delta family and had one task unseen:
+
+- **rate-change delta — 23** (not 22);
+- **1443, 1447** — strict `is_credit = true` in the reference;
+- **2712, 2727** — move-fraud-to-ACI, wrong letter, cause not found (2727 is
+  the task that never occurred in the sample);
+- **17** — the reference is `8.91`, our `8.907926` is rejected.
+

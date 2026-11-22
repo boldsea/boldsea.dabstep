@@ -99,7 +99,7 @@ The key domain rules are computed by the BOLDSEA engine itself when the facts ar
 `FeeRule` and [payments_provider.py](../payments_provider.py) implement the exact matching rules from `manual.md` §5 and `fees.json`:
 - empty lists (`accountTypes`, `mccs`, `acis`) and missing attributes (`captureDelayRule`, `monthlyFraudLevelRule`, `monthlyVolumeRule`, `isCreditRule`, `intracountryRule`) are treated as a wildcard ("matches any value");
 - when several `FeeRule` match one transaction, the fees are applied **additively (`SUM`)** (confirmed on `dev.jsonl` Task 1871);
-- when searching for the optimal ACI to move fraudulent transactions to (what-if), `min` among the matching rules is used, without discarding ACIs with uncovered schemes.
+- when searching for the optimal ACI to move fraudulent transactions to (what-if), the fees of the matching rules are **summed** as well; an ACI that leaves some payments without a matching rule stays a candidate, and such a payment costs nothing.
 
 ---
 
@@ -131,3 +131,8 @@ The key domain rules are computed by the BOLDSEA engine itself when the facts ar
 - **Payment groups in the graph.** `Model PaymentGroup` — 4 363 groups of payments with identical fee-relevant features (merchant, scheme, month, credit, ACI, intracountry) with count and amount; files `dabstep-groups-1..9.bsl`, generator [build_payment_groups.py](../build_payment_groups.py). `FeeRule` matching is defined once in the group, `Model Payment` takes it via `feeGroup`. Reconciliation with the provider: 4 363 groups, 6 870 matches, the fee totals and the 56 464 payments without rules matched.
 - **Agent.** The brief is [agent/AGENT.md](../agent/AGENT.md): two tools (`evaluate` over the graph and `payments_provider.py payments-sql` over the payments table only), with no access to the solver, the tasks or the answers.
 - **Pilot on `dev.jsonl`:** 9 out of 10, the protocol is [agent/dev-run-1.json](../agent/dev-run-1.json). Six tasks were solved with the graph only, two with SQL only, two with SQL and the graph. Task 2697 (what-if on ACI) did not match: agent `C:131.20`, reference answer `E:13.57`.
+- **Sample of the hidden set:** 30 hard tasks, random across the eight task families, one agent per task; the protocol is [agent/hard-run-1.json](../agent/hard-run-1.json). The agent's answer equals the solver's in all 30; by the leaderboard's scoring of our submission that is 29 out of 30 (task 2441 is a rate-change delta with a rounded reference). 18 tasks were solved with the graph only, 9 with the graph and SQL, 3 with SQL only. The brief contains the same readings of the question wordings as the solver, so the run tests that the model can be executed by queries, not that the readings are independent.
+
+## 7. Leaderboard result (2026-11-22)
+
+**422 of 450, 93.78 %** — easy 98.61 % (71 of 72), hard 92.86 % (351 of 378); entry "BOLDSEA BSL model", Unvalidated tab. Details are in §8.3 of the [report](02-preparation-and-runs-report.md); the approach is described in [00-concept.md](00-concept.md).

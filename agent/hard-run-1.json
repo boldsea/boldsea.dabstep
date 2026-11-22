@@ -1,0 +1,286 @@
+{
+ "run": "30 hard tasks of the hidden set, one subagent per task, tools: graph evaluate + payments-sql (agent/AGENT.md)",
+ "date": "2026-11-22",
+ "sample": "stratified by task family, random seed 20261122: other 11, fee IDs 4, total fees 4, rate delta 3, affected 2, MCC delta 2, steer 2, move ACI 2",
+ "grading": "the leaderboard scored our solver submission per task (data/task_scores); an agent answer equal to the solver answer inherits that score (numbers within 1e-4 relative, lists as sets)",
+ "score": "29/30",
+ "agreement_with_solver": "30/30",
+ "sources": {
+  "graph": 18,
+  "SQL + graph": 9,
+  "SQL": 3
+ },
+ "note_2441": "agent and solver give the same unrounded delta -2.877212; the leaderboard rejects it (reference rounded to fewer decimals)",
+ "tasks": [
+  {
+   "task_id": "1679",
+   "family": "other",
+   "agent_answer": "23.834676",
+   "source": "graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "evaluate: Avg(Map($($Model == \\"
+  },
+  {
+   "task_id": "1574",
+   "family": "other",
+   "agent_answer": "27.250479",
+   "source": "graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "evaluate: Avg(Map($($Model == \\"
+  },
+  {
+   "task_id": "1433",
+   "family": "other",
+   "agent_answer": "5813",
+   "source": "graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "Followed the brief's rule for \\"
+  },
+  {
+   "task_id": "1477",
+   "family": "other",
+   "agent_answer": "390 IDs, sum 193705 (equal to the solver list)",
+   "source": "graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "evaluate: $($Model == \\"
+  },
+  {
+   "task_id": "625",
+   "family": "other",
+   "agent_answer": "[MacOS: 77.41, Other: 82.96, Android: 83.54, Linux: 84.52, iOS: 91.34, Windows: 97.2]",
+   "source": "SQL",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "SELECT device_type, ROUND(AVG(eur_amount),2), COUNT(*) FROM payments WHERE merchant='Belles_cookbook_store' AND card_scheme='TransactPlus' AND tx_month IN (3,4) GROUP BY device_type ORDER BY 2. Row counts per device: MacOS 93, Other 120, Android 93, Linux 84, iOS 101, Windows 82 (573 total). \\"
+  },
+  {
+   "task_id": "916",
+   "family": "other",
+   "agent_answer": "[A: 68.84, C: 78.38, E: 91.1, G: 103.36, B: 123.88]",
+   "source": "SQL",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "SELECT aci, ROUND(AVG(eur_amount),2) FROM payments WHERE merchant='Rafa_AI' AND card_scheme='GlobalCard' AND tx_month BETWEEN 3 AND 12 GROUP BY aci ORDER BY 2. Row counts: A 224, C 360, E 6309, G 1045, B 162. Only five ACIs occur for this slice (no D or F). \\"
+  },
+  {
+   "task_id": "1480",
+   "family": "other",
+   "agent_answer": "161 IDs, sum 84214 (equal to the solver list)",
+   "source": "graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "$($Model == \\"
+  },
+  {
+   "task_id": "382",
+   "family": "other",
+   "agent_answer": "[GR: 80.62, SE: 80.8, IT: 86.69, FR: 91.3, ES: 92.45, NL: 103.99, BE: 106.35, LU: 174.28]",
+   "source": "SQL",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "SELECT issuing_country, ROUND(AVG(eur_amount),2), COUNT(*) FROM payments WHERE merchant='Belles_cookbook_store' AND card_scheme='SwiftCharge' AND tx_month IN (11,12) GROUP BY issuing_country ORDER BY 2. Per-transaction facts only, so the graph was not needed; 209 transactions across 8 issuing countries, sorted ascending by average amount."
+  },
+  {
+   "task_id": "1331",
+   "family": "other",
+   "agent_answer": "7.180793",
+   "source": "graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "MCC with summary \\"
+  },
+  {
+   "task_id": "1506",
+   "family": "other",
+   "agent_answer": "NexPay",
+   "source": "graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "One evaluate call (echoed query matched mine): Avg(Map($($Model == \\"
+  },
+  {
+   "task_id": "1538",
+   "family": "other",
+   "agent_answer": "5.625868",
+   "source": "graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "evaluate: Avg(Map($($Model == \\"
+  },
+  {
+   "task_id": "1765",
+   "family": "fee IDs",
+   "agent_answer": "34 IDs, sum 15145 (equal to the solver list)",
+   "source": "graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "Distinct($($Model == \\"
+  },
+  {
+   "task_id": "1701",
+   "family": "fee IDs",
+   "agent_answer": "12, 36, 107, 150, 162, 187, 280, 367, 381, 431, 433, 454, 473, 477, 491, 572, 616, 626, 660, 682, 702, 709, 741, 769, 813, 888, 891, 913, 980",
+   "source": "SQL + graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "SQL: SELECT DISTINCT card_scheme, tx_month, is_credit, aci, is_intracountry FROM payments WHERE merchant='Martinis_Fine_Steakhouse' AND day_of_year=100 -> 19 combinations, all in month 4 (day 100 = 10 April 2023). Graph: Distinct($($Model == \\"
+  },
+  {
+   "task_id": "1799",
+   "family": "fee IDs",
+   "agent_answer": "17, 36, 51, 65, 107, 123, 141, 150, 163, 183, 276, 286, 304, 359, 384, 427, 428, 454, 477, 498, 595, 626, 631, 634, 701, 709, 741, 787, 813, 861, 888, 892, 924",
+   "source": "graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "Distinct($($Model == \\"
+  },
+  {
+   "task_id": "1744",
+   "family": "fee IDs",
+   "agent_answer": "86 IDs, sum 42119 (equal to the solver list)",
+   "source": "graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "Distinct($($Model == \\"
+  },
+  {
+   "task_id": "1740",
+   "family": "total fees",
+   "agent_answer": "40.23",
+   "source": "SQL + graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "SQL: Rafa_AI payments with day_of_year=365 (tx_month 12, 74 payments) grouped by card_scheme, is_credit, aci, is_intracountry -> 24 groups with count n and volume vol. Graph: for each matching PaymentGroup PG-Rafa_AI-<scheme>-2023-12-<credit|debit>-<aci>-<intra|cross>, Sum(Map(@(PG).matchedFeeRules, First(@($It).fixedAmount) * n + First(@($It).feeRate) * vol / 10000)); total over groups = 40.227879. Assumption: 8 of the 24 groups (33 of the 74 payments: GlobalCard credit E/G cross+intra, NexPay debit E cross+intra, SwiftCharge debit G cross, SwiftCharge credit G cross) have zero matchedFeeRule"
+  },
+  {
+   "task_id": "1817",
+   "family": "total fees",
+   "agent_answer": "642.39",
+   "source": "graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "Sum($($Model == \\"
+  },
+  {
+   "task_id": "1835",
+   "family": "total fees",
+   "agent_answer": "1327.44",
+   "source": "graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "Sum($($Model == \\"
+  },
+  {
+   "task_id": "1734",
+   "family": "total fees",
+   "agent_answer": "13.80",
+   "source": "SQL + graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "SQL: payments of Martinis_Fine_Steakhouse with day_of_year=365 (32 tx, month 12) grouped by card_scheme / is_credit / aci / is_intracountry -> 18 groups with count and volume. Graph: matchedFeeRules of the corresponding PG-Martinis_Fine_Steakhouse-<scheme>-2023-12-... groups, then fixedAmount and feeRate of each of the 22 rules; fee = sum over matched rules of (fixedAmount * n + feeRate * volume / 10000) = 13.8047. Assumption / caveat: only 8 of the 18 groups (13 of the 32 transactions) have any matched rule; the other 10 groups (all GlobalCard credit, all NexPay except debit-F-cross; 19 tx) h"
+  },
+  {
+   "task_id": "2499",
+   "family": "rate delta",
+   "agent_answer": "-26.741241",
+   "source": "graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "Graph evaluate: FeeRule-595 feeRate = 62; 19 PaymentGroups of Golfclub_Baron_Friso in 2023 have FeeRule-595 in matchedFeeRules, with summed totalVolume = 4383.81 EUR. Delta = (1 - 62) * 4383.81 / 10000 = -26.741241 (fixedAmount unchanged, so it cancels). Rounded to 14 decimals: -26.74124100000000."
+  },
+  {
+   "task_id": "2493",
+   "family": "rate delta",
+   "agent_answer": "-511.85155000000000",
+   "source": "graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "FeeRule-64 has feeRate 51 (fixedAmount 0.08). It is in matchedFeeRules of 24 PaymentGroups of Golfclub_Baron_Friso in 2023: 1160 payments, totalVolume 102370.31 EUR. Delta = (1 - 51) * 102370.31 / 10000 = -511.85155 (fixed part unchanged). Not cross-checked in SQL; volume taken as the graph's group sums."
+  },
+  {
+   "task_id": "2441",
+   "family": "rate delta",
+   "agent_answer": "-2.877212",
+   "source": "SQL + graph",
+   "equals_solver": true,
+   "leaderboard_correct": false,
+   "trace": "Graph: FeeRule-384 has feeRate 14, fixedAmount 0.05; it is matched by 4 Rafa_AI October PaymentGroups (NexPay, credit, ACI B/C, intra+cross), 24 payments, totalVolume 2213.24 (SQL confirms count 24, sum 2213.24). Delta = (1 - 14) * 2213.24 / 10000 = -2.877212 (fixed part unchanged; \\"
+  },
+  {
+   "task_id": "2556",
+   "family": "affected",
+   "agent_answer": "Belles_cookbook_store, Martinis_Fine_Steakhouse",
+   "source": "graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "Distinct($($Model == \\"
+  },
+  {
+   "task_id": "2525",
+   "family": "affected",
+   "agent_answer": "Belles_cookbook_store, Crossfit_Hanna, Golfclub_Baron_Friso, Martinis_Fine_Steakhouse, Rafa_AI",
+   "source": "graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "Distinct($($Model == \\"
+  },
+  {
+   "task_id": "2544",
+   "family": "MCC delta",
+   "agent_answer": "0.000000",
+   "source": "graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "Martinis_Fine_Steakhouse has mcc MCC-5812 (AT-H, immediate); current 2023 fees Sum(PaymentGroup.calculatedFee) = 12387.682233. Count(FeeRule, mccs == MCC-5411) = 118, Count(mccs == MCC-5812) = 118, Count(both) = 118, Count(either) = 118 — every rule that names 5411 also names 5812 and vice versa; rules with empty mccs fit both. So the set of fitting rules for every payment group is identical under MCC 5411, the yearly fee is unchanged and the delta is 0."
+  },
+  {
+   "task_id": "2549",
+   "family": "MCC delta",
+   "agent_answer": "7885.871004",
+   "source": "SQL + graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "Graph: Rafa_AI is MCC-7372, AT-D, captureDelayBucket \\"
+  },
+  {
+   "task_id": "2634",
+   "family": "steer",
+   "agent_answer": "NexPay:382.85",
+   "source": "SQL + graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "Graph: Martinis_Fine_Steakhouse = AT-H, MCC-5812, captureDelayBucket \\"
+  },
+  {
+   "task_id": "2691",
+   "family": "steer",
+   "agent_answer": "TransactPlus:3458.48",
+   "source": "SQL + graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "Graph: Golfclub_Baron_Friso is AT-F, capture delay <3, MCC-7993, December buckets fraud >8.3% / volume 100k-1m; 41 fee rules fit those merchant-level fields (ruleId, fixedAmount, feeRate, acis, cardScheme, isCreditRule, intracountryRule read via evaluate). SQL: all December payments of the merchant grouped by is_credit / aci / is_intracountry (count, volume). What-if, all December traffic steered to one scheme (fees of all fitting rules add up, no fitting rule adds 0): TransactPlus 3458.48, SwiftCharge 1005.60, GlobalCard 895.09, NexPay 84.08. Check: the same calculation restricted to each sch"
+  },
+  {
+   "task_id": "2769",
+   "family": "move ACI",
+   "agent_answer": "E",
+   "source": "SQL + graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "SQL: fraudulent payments of Golfclub_Baron_Friso (has_fraudulent_dispute=1, 2023) grouped by card_scheme, tx_month, is_intracountry with count and volume. Graph: merchant facts (AT-F, MCC-7993, capture delay <3), monthly buckets (volume 100k-1m all year; fraud >8.3% except June at 7.7%-8.3%), and the 21 FeeRules fitting those facts with their fixedAmount/feeRate and their fit sets by scheme, intracountry, fraud bucket and ACI A–F. Fee per ACI = sum over groups and fitting rules of fixedAmount*n + feeRate*volume/10000, computed with python3 from the tool results; G excluded as the current ACI."
+  },
+  {
+   "task_id": "2731",
+   "family": "move ACI",
+   "agent_answer": "E",
+   "source": "SQL + graph",
+   "equals_solver": true,
+   "leaderboard_correct": true,
+   "trace": "SQL: Rafa_AI July fraudulent payments are all ACI G, credit, 181 tx in 8 groups (scheme x intracountry) with counts and volumes. Graph: Rafa_AI = AT-D, MCC-7372, capture \\"
+  }
+ ]
+}

@@ -21,8 +21,8 @@ and the tasks are then answered from that model.
 | `payments_provider.py` | Read-only access to the payments table (the transactions stay outside the graph) |
 | `solve_dabstep.py` | Solver for all 450 tasks; writes `submissions/bsl_model_submission.jsonl` |
 | `build_submission_variants.py`, `submissions/variants/` | One submission per disputed modelling decision (see below) |
-| `agent/` | Brief and pilot protocol of an agent that answers from the live graph with two tools only |
-| `docs/` | Solution description and the report on preparation and runs |
+| `agent/` | Brief and run protocols of an agent that answers from the live graph with two tools only |
+| `docs/` | The concept (`00-concept.md`), the solution description and the report on preparation and runs |
 
 ## Results
 
@@ -31,15 +31,21 @@ Stated as they are:
 - **Official dev set:** 9 of 10. The failing task (2697) has a reference answer
   `E:13.57`; the solver answers `E`. The number could not be reproduced under
   any semantics we tried (see `docs/02-preparation-and-runs-report.md`, §7).
-- **Hidden set (450 tasks):** no leaderboard score yet. The dataset publishes
+- **Hidden set (450 tasks), leaderboard, 2026-11-22:** **422 correct, 93.78 %**
+  — easy 98.61 % (71 of 72), hard 92.86 % (351 of 378). Entry "BOLDSEA BSL
+  model" on the Unvalidated tab; validation requests are closed by the
+  organisers until DABstep-v2.
+- The score equals the forecast made before submitting. The dataset publishes
   how the leaderboard scored every answer of every public submission
-  (`data/task_scores`). In a random sample of 200 submissions, an answer
-  identical to ours was scored correct for **422 tasks**, incorrect for 27, and
-  never occurred for 1 — an expected score of about 94 %. The same data was
-  used to check the semantics of task families, not to copy answers (§8 of the
-  report).
-- **Agent on the live graph:** 9 of 10 on dev in a pilot run; not run on the
-  450 tasks.
+  (`data/task_scores`); in a random sample of 200 submissions an answer
+  identical to ours was scored correct for 422 tasks. The same data was used to
+  check the semantics of task families, not to copy answers (§8 of the report).
+- **Agent on the live graph:** 9 of 10 on dev; 29 of 30 on a random sample of
+  hard tasks from the hidden set, with the agent's answer equal to the solver's
+  in all 30 (`agent/hard-run-1.json`). Not run on all 450 tasks. The agent's
+  brief carries the same readings of the question wordings as the solver, so
+  the run shows that the model can be executed by queries, not that the
+  readings are independent.
 
 Three modelling decisions were disputed and are confirmed by that comparison:
 the monthly fraud level is a ratio of volumes, not of counts; when several fee
@@ -56,9 +62,9 @@ without a fitting rule stays a candidate and that payment costs nothing.
   computes over SQLite with the same semantics as the model; the two were
   cross-checked (200 payments and control totals), but they are two
   implementations. The agent in `agent/` is the graph-only path.
-- 27 answers are known to be scored incorrect: 22 rate-change deltas where the
-  reference answer is rounded to one or two decimals although the task asks for
-  14 (our unrounded value is rejected), and five others; see §8.2 of the report.
+- 28 answers are scored incorrect: 23 rate-change deltas where the reference
+  answer is rounded to one or two decimals although the task asks for 14 (our
+  unrounded value is rejected), and five others; see §8.2–8.3 of the report.
 
 ## Reproduce
 
