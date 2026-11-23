@@ -95,7 +95,17 @@ The agent solved 18 tasks with the graph alone, 9 with the graph and the payment
 
 The conclusion is therefore this: the result comes not from the strength of reasoning over a question, but from the fact that the domain is understood once, written down in executable form, and applied in the same way to all questions. What carries over to other domains in this work is exactly this path — the language, the engine, the model and the agent on top of it — not the solver.
 
-## 8. Limits of the approach
+## 8. What else the semantic approach gives
+
+Three consequences that belong specifically to the semantic part of the solution — the model and the agent on top of it — and that are to be developed in the work on DABstep-v2.
+
+1. **Cost of the solution.** The whole solution — from loading the corpus to the leaderboard submission — took two days (21–22 November 2026, by file dates): a few hours of work of a single top-tier language model directed by an analyst. There was no separate stage of learning on solved tasks, no repeated runs and no prompt tuning.
+2. **Transparency.** Every answer can be traced formally: which facts and which expressions of the model produced it. The agent's protocols record a trace for each task — the queries to the graph and the table from which the answer was obtained.
+3. **Correcting errors in the documents and data themselves.** Transparency and the semantic form lead to what matters most in practical use: the system serves not only to extract data but also to analyse it — to detect errors and inconsistencies in the documents and data. The model requires a notion to have a definition, a rule to have a condition, a threshold to have a value, and it shows the place where one is missing. On DABstep this is how we found notions of the manual without thresholds, reference answers rounded against the task's own guideline, and two answers that read an empty field value differently from the rest of the corpus. In production use this is the goal: consistent documents and data, not fitting to guess the answers to questions.
+
+   A hundred-percent result, especially on constantly changing corporate data, can only be reached from two sides at once: (1) tuning the query system and (2) optimizing and validating the structure of the data corpus itself. The first side without the second runs into errors and gaps of the corpus that no query can remove. The most promising use of BSL is the merging of these sides: building an ontology of the organization's activity and moving the corporation to executable models. Then documents and data exist as a model from the start, and no gap between the corpus and the query system arises.
+
+## 9. Limits of the approach
 
 - It works where the corpus has a stable domain and formal documents. The more rules and definitions the corpus contains, the larger the gain; on a corpus of unrelated tables alone it is smaller.
 - Domain independence is a property of the language, the engine and the way of working, but not of the model: the model of each domain is written anew. In this work the approach was tested on one corpus; portability to another benchmark was not measured here.
